@@ -24,9 +24,34 @@
 
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right" style="float: right;display: inline-block">
+                @guest
                 <!-- Authentication Links -->
-                <li style="float:left;display: inline-block"><a href="#">登录</a></li>
-                <li style="float: left;margin-left: 50px;display: inline-block"><a href="#">注册</a></li>
+                <li style="float:left;display: inline-block"><a href="{{route('login')}}">登录</a></li>
+                <li style="float: left;margin-left: 50px;display: inline-block"><a href="{{route('register')}}">注册</a></li>
+                @else
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <span class="user-avatar pull-left" style="margin-right:8px; margin-top:-5px;">
+                                <img src="https://cdn.learnku.com/uploads/images/201709/20/1/PtDKbASVcz.png?imageView2/1/w/60/h/60" class="img-responsive img-circle" width="30px" height="30px">
+                            </span>
+                            {{ Auth::user()->name }} <span class="caret"></span>
+                        </a>
+
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="{{ route('logout') }}"
+                                   onclick="event.preventDefault(); //阻止事件的发生
+                                             document.getElementById('logout-form').submit();">
+                                    退出登录
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    {{ csrf_field() }}
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                @endguest
             </ul>
         </div>
     </div>
